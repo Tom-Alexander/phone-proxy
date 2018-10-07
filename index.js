@@ -33,6 +33,4 @@ app.use(bodyParser.json());
 app.post('/sms', sms);
 app.post('/voice', voice);
 app.get('/', (_, res) => res.send('Alive'));
-app.listen(process.env.PORT);
-
-
+app.listen(process.env.PORT || 3000);

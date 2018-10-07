@@ -1,0 +1,29 @@
+{
+  "name": "phone-proxy",
+  "description": "Proxy SMS and voice calls to a different number using the twilio API.",
+  "repository": "https://github.com/Tom-Alexander/phone-proxy",
+  "keywords": [
+    "phone",
+    "twilio",
+    "proxy"
+  ],
+  "addons": [],
+  "env": {
+    "ACCOUNT_SID": {
+      "description": "Twilio account SID",
+      "required": true
+    },
+    "AUTH_TOKEN": {
+      "description": "Twilio auth token",
+      "required": true
+    },
+    "FROM_NUMBER": {
+      "description": "Your twilio phone number",
+      "required": true
+    },
+    "TO_NUMBER": {
+      "description": "The phone number you would like to proxy to",
+      "required": true
+    }
+  }
+}
