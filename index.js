@@ -10,9 +10,9 @@ const empty = () => {
   return messagingResponse.toString();
 };
 
-const receive = (req, res) => {
+const sms = (req, res) => {
   return client.messages
-    .create({ to: process.env.TO_NUMBER, body: `Relayed: ${req.body.Body}`, from: process.env.FROM_NUMBER })
+    .create({ to: process.env.TO_NUMBER, body: req.body.Body, from: process.env.FROM_NUMBER })
     .then(() => res.send(empty()))
     .catch((err) => {
       console.error(err);
@@ -20,9 +20,18 @@ const receive = (req, res) => {
     });
 };
 
+const voice = (req, res) => {
+  const twiml = new Twilio.twiml.VoiceResponse();
+  const dial = twiml.dial({ callerId: process.env.TO_NUMBER });
+  dial.number(process.env.TO_NUMBER);
+  res.type('text/xml');
+  res.send(twiml.toString());
+};
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.post('/sms', receive);
+app.post('/sms', sms);
+app.post('/voice', voice);
 app.get('/', (_, res) => res.send('Alive'));
 app.listen(process.env.PORT);
 
